@@ -1,0 +1,22 @@
+name: "Azure Login (OIDC)"
+description: "Federated (OIDC) sign-in to Azure -- no client secret, trust is scoped to this repo/branch/environment via Entra federated credentials."
+
+inputs:
+  client-id:
+    description: "Azure AD app/managed identity client ID"
+    required: true
+  tenant-id:
+    description: "Azure AD tenant ID"
+    required: true
+  subscription-id:
+    description: "Azure subscription ID"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: azure/login@v3
+      with:
+        client-id: ${{ inputs.client-id }}
+        tenant-id: ${{ inputs.tenant-id }}
+        subscription-id: ${{ inputs.subscription-id }}
